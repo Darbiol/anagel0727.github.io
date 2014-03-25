@@ -15,21 +15,94 @@
 		</div>
 	</div>
 
-	<div class="container">
+	<div class="container" id="main-region">
 		<p>
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			this is where we will place our marionette
 		</p>
 	</div>
 
-<script type="text/javascript" scr="./assets/js/vendor/jquery.js"></script>
-<script type="text/javascript" scr="./assets/js/vendor/underscore.js"></script>
-<script type="text/javascript" scr="./assets/js/vendor/backbone.js"></script>
-<script type="text/javascript" scr="./assets/js/vendor/backbone.marionette.js"></script>
+	<div class="container" id="secondary-main-region">
+		<ul id="todo">
+			<li>One</li>
+		</ul>
+	</div>
+
+<script type="text/javascript" src="./assets/js/vendor/jquery.js"></script>
+<script type="text/javascript" src="./assets/js/vendor/underscore.js"></script>
+<script type="text/javascript" src="./assets/js/vendor/backbone.js"></script>
+<script type="text/javascript" src="./assets/js/vendor/backbone.marionette.js"></script>
+
+<script type="text/template" id="static-template">
+	<p>this is the template Marionette is replacing. And you cant Do anything about it.</p>
+</script>
+
+<script type="text/template" id="different-static-template">
+	<span>Two</span>
+</script>
+
+<script type="text/template" id="contact-template">
+<p><%= firstName %> 	<%= lastName %></p>
+</script>
+
+<script type="text/javascript">
+var ContactManager = new Marionette.Application();
+
+ContactManager.addRegions({
+	mainRegion :'#main-region',
+	//secondaryRegion : '#secondary-main-region'
+});
+
+ContactManager.Contact = Backbone.Model.extend({});
+
+ContactManager.StaticView = Marionette.ItemView.extend({
+	id :'static-view',
+	tagName : 'span',
+	className : 'instruction',
+	template : '#static-template'
+});
+
+ContactManager.SecondaryStaticView = Marionette.ItemView.extend({
+	id : 'secondary-static-view',
+	tagName : 'li',
+	template : '#different-static-template'
+});
+
+ContactManager.ContactView = Marionette.ItemView.extend({
+	tagName : 'li',
+	template : '#contact-template',
+	events : {
+		'click p' : 'alertPhoneNumber'
+	},
+	alertPhoneNumber : function (){
+		alert(this.model)
+		console.log(this.model);
+	}
+});
+
+ContactManager.on('initialize:after', function(){
+	var staticView = new ContactManager.StaticView();
+	//var secondaryView = new ContactManager.SecondaryStaticView();
+
+	//ContactManager.mainRegion.show(staticView);
+	alice = new ContactManager.Contact({
+		firstName : 'Alice',
+		lastName : 'Arten',
+		phoneNumber : '90123456789'
+	});
+	var aliceView = new ContactManager.ContactView({
+		model: alice
+	});
+	ContactManager.mainRegion.show(aliceView);
+	//ContactManager.secondaryRegion.show(staticView);
+	//ContactManager.secondaryRegion.show(secondaryView);
+	console.log(staticView);
+	console.log('finished initializing. Contact Manager Started.');
+})
+
+ContactManager.start();
+</script>
+
+
 
 </body>
 </html>
