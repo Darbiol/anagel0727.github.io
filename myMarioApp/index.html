@@ -28,22 +28,40 @@
 <script type="text/javascript" src="./assets/js/vendor/backbone.marionette.js"></script>
 <script type="text/javascript" src="./assets/js/app.js"></script>
 <script type="text/javascript" src="./assets/js/entities/contact.js"></script>
+<script type="text/javascript" src="./assets/js/apps/contacts/contacts_app.js"></script>
 <script type="text/javascript" src="./assets/js/apps/contacts/list/list_view.js"></script>
 <script type="text/javascript" src="./assets/js/apps/contacts/list/list_controller.js"></script>
+<script type="text/javascript" src="./assets/js/apps/contacts/show/show_controller.js"></script>
+<script type="text/javascript" src="./assets/js/apps/contacts/show/show_view.js"></script>
 
 <script type="text/template" id="static-template">
 	<p>this is the template Marionette is replacing. And you cant Do anything about it.</p>
 </script>
 
 <script type="text/template" id="contact-template">
-		<td><%= firstName %></td><td><%= lastName %></td>
+		<td><%= firstName %></td>
+		<td><%= lastName %></td>
+		<td>
+			<a href="#contacts/<%= id%>"class="btn btn-small btn-primary js-show">
+				<i class="icon-eye-open"></i>
+				Show
+			</a>
+			<button class="delete btn btn-danger btn-small">
+				<i class="icon-remove"></i>Delete
+			</button>
+		</td>
 </script>
 
 <script type="text/template" id="contact-list">
 	<thead>
-		<tr><th>First Name</th><th>Last Name</th></tr>
+		<tr><th>First Name</th><th>Last Name</th><th></th></tr>
 	</thead>
 	<tbody></tbody>
+</script>
+
+<script type="text/template" id="contact-show-template">
+	<h1><%= firstName %> <%= lastName%></h1>
+	<p><strong>Phone Number: </strong><%= phoneNumber %></p>
 </script>
 
 <script type="text/javascript">

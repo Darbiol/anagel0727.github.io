@@ -20,12 +20,14 @@ ContactManager.module('Entities', function ( Entities , ContactManager, Backbone
 	var initContacts = function ( ){
 		contacts = new Entities.ContactsCollection([
 				{
-				 firstName: "Alice",
-				 lastName: "Tampen"
+				 firstName : "Alice",
+				 lastName : "Tampen",
+				 phoneNumber : '560-2376'
 				},
 				{
 				 firstName: "Bob",
-				 lastName: "Brigham"
+				 lastName: "Brigham",
+				 phoneNumber : '563-1235'
 				},
 				{
 				 firstName: "Alice",
@@ -33,7 +35,8 @@ ContactManager.module('Entities', function ( Entities , ContactManager, Backbone
 				},
 				{
 				 firstName: "Alice",
-				 lastName: "Arten"
+				 lastName: "Arten",
+				 phoneNumber : '520-2376'
 				},
 				{
 				 firstName: "Charlie",
